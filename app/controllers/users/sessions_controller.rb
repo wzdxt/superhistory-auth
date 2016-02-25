@@ -1,6 +1,7 @@
 class Users::SessionsController < Devise::SessionsController
 # before_filter :configure_sign_in_params, only: [:create]
   prepend_before_filter { request.env["devise.mapping"] = Devise.mappings[:user] }
+  before_action :set_return_to
 
   # GET /resource/sign_in
   # def new
@@ -36,5 +37,12 @@ class Users::SessionsController < Devise::SessionsController
   def after_sign_out_path_for(resource_or_scope)
     @return_to ||= params[:return_to]
     return_to = @return_to ? @return_to : Settings.hosts.web.url
+  end
+
+  private
+
+  def set_return_to
+    session[:return_to] = params[:return_to] if params[:return_to]
+    @return_to = params[:return_to] if params[:return_to]
   end
 end
