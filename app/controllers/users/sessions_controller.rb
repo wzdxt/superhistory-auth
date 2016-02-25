@@ -34,6 +34,6 @@ class Users::SessionsController < Devise::SessionsController
   end
 
   def after_sign_out_path_for(resource_or_scope)
-    return_to = session[:return_to] ? session[:return_to] : Settings.hosts.web.url
+    return_to = @return_to ? @return_to : Settings.hosts.web.url
   end
 end

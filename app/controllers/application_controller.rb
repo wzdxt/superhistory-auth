@@ -6,5 +6,6 @@ class ApplicationController < ActionController::Base
 
   def set_return_to
     session[:return_to] = params[:return_to] if params[:return_to]
+    @return_to = params[:return_to] if params[:return_to]
   end
 end
