@@ -37,6 +37,7 @@ gem 'devise-encryptable'
 gem 'settingslogic'
 
 group :production do
+  gem 'mysql2'
   gem 'viaduct_rails_helpers'
 end
 
