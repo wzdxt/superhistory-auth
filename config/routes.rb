@@ -1,7 +1,10 @@
 Rails.application.routes.draw do
-  devise_for :users
-  root 'welcome#index'
-  get 'logout' => 'logout#index'
+  devise_for :users, :controllers => {:sessions => 'users/sessions'}
+  devise_scope :users do
+    get 'users/sign_out' => 'users/sessions#destroy'
+  end
+  # root 'welcome#index'
+  # get 'logout' => 'logout#index'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

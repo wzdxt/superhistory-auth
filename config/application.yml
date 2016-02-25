@@ -1,0 +1,12 @@
+default: &default
+
+development:
+  <<: *default
+  shared_cookies_domain: '.localhost.com'
+
+test:
+  <<: *default
+
+production:
+  <<: *default
+  shared_cookies_domain: '.x-history.top'
