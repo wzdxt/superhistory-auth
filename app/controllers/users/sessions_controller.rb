@@ -35,6 +35,7 @@ class Users::SessionsController < Devise::SessionsController
   end
 
   def after_sign_out_path_for(resource_or_scope)
+    cookies.delete :dist_session_id, :domain => Settings.shared_cookies_domain
     @return_to ||= params[:return_to]
     return_to = @return_to ? @return_to : Settings.hosts.web.url
   end
