@@ -28,10 +28,12 @@ class Users::SessionsController < Devise::SessionsController
   # end
 
   def after_sign_in_path_for(resource_or_scope)
+    resource = resource_or_scope.is_a?(Symbol) ? warden.user(resource_or_scope) : resource_or_scope
     dist_session = DistSession.find_or_create_by :session_id => session.id
     dist_session.update :data => {:user_id => resource.id}.to_json
     cookies[:dist_session_id] = {:value => dist_session.session_id, :domain => Settings.shared_cookies_domain}
-    return_to = session[:return_to] ? session[:return_to] : Settings.hosts.web.url
+    @return_to = params[:return_to] if params[:return_to]
+    return_to = @return_to ? @return_to : Settings.hosts.web.url
   end
 
   def after_sign_out_path_for(resource_or_scope)
